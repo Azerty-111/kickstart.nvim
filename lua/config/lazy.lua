@@ -24,8 +24,6 @@ require("config.moi") --containe opt and mapleader setup
 -- Setup lazy.nvim
 require("lazy").setup({
   spec = {
-    -- import your plugins
-    { import = "plugins" },
     --treesitter
     {
       'nvim-treesitter/nvim-treesitter',
@@ -47,6 +45,10 @@ require("lazy").setup({
     { "ThePrimeagen/harpoon", name = "harpoon"},
     --undotree
     { "mbbill/undotree", name = "undotree"},
+    --git integration
+    {"tpope/vim-fugitive", name = "fugitive"},
+    -- mason (lsp)
+    { "mason-org/mason.nvim", opts = {}, lazy = false},
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
