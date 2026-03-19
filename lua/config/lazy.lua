@@ -1,4 +1,4 @@
--- Bootstrap lazy.nvim
+-- Bootstra lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -18,27 +18,35 @@ vim.opt.rtp:prepend(lazypath)
 -- Make sure to setup `mapleader` and `maplocalleader` before
 -- loading lazy.nvim so that mappings are correct.
 -- This is also a good place to setup other settings (vim.opt)
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
+
+require("config.moi") --containe opt and mapleader setup
 
 -- Setup lazy.nvim
 require("lazy").setup({
   spec = {
     -- import your plugins
     { import = "plugins" },
+    --treesitter
     {
       'nvim-treesitter/nvim-treesitter',
       lazy = false,
       build = ':TSUpdate'
     },
+    --telescope
     {
-    'nvim-telescope/telescope.nvim', version = '*',
-    dependencies = {
+      'nvim-telescope/telescope.nvim', version = '*',
+      dependencies = {
         'nvim-lua/plenary.nvim',
         -- optional but recommended
         { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-    }
-}
+      }
+    },
+    --rose-pine
+    { "rose-pine/neovim", name = "rose-pine" },
+    --harpoon
+    { "ThePrimeagen/harpoon", name = "harpoon"},
+    --undotree
+    { "mbbill/undotree", name = "undotree"},
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.

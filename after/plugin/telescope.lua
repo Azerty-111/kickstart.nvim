@@ -3,4 +3,4 @@ vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find f
 vim.keymap.set('n', '<leader>gf', builtin.git_files, { desc = 'Telescope find files' })
 vim.keymap.set('n', '<leader>wf', function()
 	builtin.grep_string({ search = vim.fn.input("String -> ")})
-end
+end)
