@@ -1,1 +1,1 @@
-require("moi")
+require("config.lazy")
