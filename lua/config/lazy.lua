@@ -28,7 +28,14 @@ require("lazy").setup({
     {
       "nvim-treesitter/nvim-treesitter",
       build = ":TSUpdate",
-      lazy = false
+      lazy = false,
+      config = function()
+        require("nvim-treesitter.config").setup({
+	  auto_install = true,
+	  highlight = { enable = true},
+          install_dir = vim.fn.stdpath('data') .. '/lazy/nvim-treesitter'
+        })
+      end
     },
     --telescope
     {
