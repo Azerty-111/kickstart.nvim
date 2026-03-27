@@ -26,9 +26,9 @@ require("lazy").setup({
   spec = {
     --treesitter
     {
-      'nvim-treesitter/nvim-treesitter',
-      lazy = false,
-      build = ':TSUpdate'
+      "nvim-treesitter/nvim-treesitter",
+      build = ":TSUpdate",
+      lazy = false
     },
     --telescope
     {
