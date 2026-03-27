@@ -3,5 +3,5 @@ vim.lsp.config('rust', {
   filetypes = {'rust'},
   root_markers = {'cargo.toml', "cargo.lock"},
 })
-
-vim.lsp.enable('rust')
+print("Err('lsp call')")
+-- vim.lsp.enable('rust')
