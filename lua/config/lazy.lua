@@ -24,70 +24,52 @@ require("config.moi") --containe opt and mapleader setup
 -- Setup lazy.nvim
 require("lazy").setup({
   spec = {
-  -- treesitter V2
-  -- TODO à simplifier
-  {
-    "nvim-treesitter/nvim-treesitter",
-    lazy = false,
-    build = ":TSUpdate",
-    config = function()
-      local ts = require("nvim-treesitter")
-      local languages = {
-        "html",
-        "json",
-        "lua",
-        "markdown",
-        "python",
-        "sql",
-        "vim",
-	"rust",
-	"lua"
-      }
+    -- treesitter V2
+    {
+        "nvim-treesitter/nvim-treesitter",
+        lazy = false,
+        build = ":TSUpdate",
+        config = function()
+        local ts = require("nvim-treesitter")
+        local languages = {
+          "html",
+          "json",
+          "lua",
+          "markdown",
+          "python",
+          "sql",
+          "vim",
+    	  "rust",
+          "lua"
+        }
+    
+        ts.setup({
+          install_dir = vim.fn.stdpath('data') .. '/lazy/nvim-treesitter',
+  	-- Automatically install missing parsers when entering buffer
+  	auto_install = false,
+        })
+    
+        -- Use :TSInstall for manuall install languages
+        ts.install(languages)
   
-      ts.setup({
-        install_dir = vim.fn.stdpath('data') .. '/lazy/nvim-treesitter',
-	-- Automatically install missing parsers when entering buffer
-	auto_install = false,
-      })
+        -- Treesitter features for installed languages must be enabled manually
+        vim.api.nvim_create_autocmd("FileType", {
+          pattern = languages,
+          callback = function()
+            -- Enable native Neovim treesitter highlighting
+            vim.treesitter.start()
   
-      -- NOTE: If languages fail to install or compilation hangs,
-      -- ensure 'tree-sitter-cli' is installed (e.g., :MasonInstall tree-sitter-cli).
-      -- If the issue persists, run :checkhealth nvim-treesitter to diagnose.
-
-      -- Use :TSInstall for manuall install languages
-      ts.install(languages)
-
-      -- Treesitter features for installed languages must be enabled manually
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = languages,
-        callback = function()
-          -- Enable native Neovim treesitter highlighting
-          vim.treesitter.start()
-
-          -- Configure code folding
-          vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-          vim.wo.foldmethod = "expr"
-          vim.wo.foldlevel = 99
-
-          -- Enable treesitter-based indentation
-          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-        end,
-      })
-    end,
-  },
-    --treesitter V1
---     {
---       "nvim-treesitter/nvim-treesitter",
---       build = ":TSUpdate",
---       lazy = false,
---       config = function()
---         require("nvim-treesitter.config").setup({
--- 	  auto_install = true,
--- 	  highlight = { enable = true},
---           install_dir = vim.fn.stdpath('data') .. '/lazy/nvim-treesitter'
---         })
---       end
---     },
+            -- Configure code folding # IDK ce que ça fait
+            -- vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+            -- vim.wo.foldmethod = "expr"
+            -- vim.wo.foldlevel = 99
+  
+            -- Enable treesitter-based indentation # ça non plus
+            -- vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          end,
+        })
+      end,
+    },
     --telescope
     {
       'nvim-telescope/telescope.nvim', version = '*',
@@ -98,7 +80,13 @@ require("lazy").setup({
       }
     },
     --rose-pine
-    { "rose-pine/neovim", name = "rose-pine" },
+    {
+      "rose-pine/neovim",
+       name = "rose-pine",
+       config = function()
+         vim.cmd('colorscheme rose-pine')
+       end,
+    },
     --harpoon
     { "ThePrimeagen/harpoon", name = "harpoon"},
     --undotree
@@ -106,11 +94,11 @@ require("lazy").setup({
     --git integration
     {"tpope/vim-fugitive", name = "fugitive"},
     -- mason (lsp)
---    { "mason-org/mason.nvim", opts = {}, lazy = false},
+   { "mason-org/mason.nvim", opts = {}, lazy = false},
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
---  install = { colorscheme = { "habamax" } },
+  install = { colorscheme = { "rose-pine" } },
   -- automatically check for plugin updates
   checker = { enabled = true },
 })
