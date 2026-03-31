@@ -3,5 +3,20 @@ vim.lsp.config('rust', {
   filetypes = {'rust'},
   root_markers = {'cargo.toml', "cargo.lock"},
 })
-print("Err('lsp call')")
--- vim.lsp.enable('rust')
+
+vim.lsp.enable('rust')
+
+vim.lsp.config('lua', {
+  cmd = {'lua-language-server'},
+  filetypes = {'lua'},
+  root_markers = {'lua', 'init.lua'},
+})
+
+vim.lsp.enable('lua')
+
+vim.lsp.config('python', {
+  cmd = {'python-lsp-server'},
+  filetypes = {'python'},
+})
+
+vim.lsp.enable('python')
