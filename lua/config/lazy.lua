@@ -1,17 +1,17 @@
 -- Bootstra lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-  if vim.v.shell_error ~= 0 then
-    vim.api.nvim_echo({
-      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out, "WarningMsg" },
-      { "\nPress any key to exit..." },
-    }, true, {})
-    vim.fn.getchar()
-    os.exit(1)
-  end
+	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+	local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+	if vim.v.shell_error ~= 0 then
+		vim.api.nvim_echo({
+			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+			{ out,                            "WarningMsg" },
+			{ "\nPress any key to exit..." },
+		}, true, {})
+		vim.fn.getchar()
+		os.exit(1)
+	end
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -23,82 +23,89 @@ require("config.moi") --containe opt and mapleader setup
 
 -- Setup lazy.nvim
 require("lazy").setup({
-  spec = {
-    -- treesitter V2
-    {
-        "nvim-treesitter/nvim-treesitter",
-        lazy = false,
-        build = ":TSUpdate",
-        config = function()
-        local ts = require("nvim-treesitter")
-        local languages = {
-          "html",
-          "json",
-          "lua",
-          "markdown",
-          "python",
-          "sql",
-          "vim",
-    	  "rust",
-          "lua"
-        }
-    
-        ts.setup({
-          install_dir = vim.fn.stdpath('data') .. '/lazy/nvim-treesitter',
-  	-- Automatically install missing parsers when entering buffer
-  	auto_install = false,
-        })
-    
-        -- Use :TSInstall for manuall install languages
-        ts.install(languages)
-  
-        -- Treesitter features for installed languages must be enabled manually
-        vim.api.nvim_create_autocmd("FileType", {
-          pattern = languages,
-          callback = function()
-            -- Enable native Neovim treesitter highlighting
-            vim.treesitter.start()
-  
-            -- Configure code folding # IDK ce que ça fait
-            -- vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-            -- vim.wo.foldmethod = "expr"
-            -- vim.wo.foldlevel = 99
-  
-            -- Enable treesitter-based indentation # ça non plus
-            -- vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-          end,
-        })
-      end,
-    },
-    --telescope
-    {
-      'nvim-telescope/telescope.nvim', version = '*',
-      dependencies = {
-        'nvim-lua/plenary.nvim',
-        -- optional but recommended
-        { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-      }
-    },
-    --rose-pine
-    {
-      "rose-pine/neovim",
-       name = "rose-pine",
-       config = function()
-         vim.cmd('colorscheme rose-pine')
-       end,
-    },
-    --harpoon
-    { "ThePrimeagen/harpoon", name = "harpoon"},
-    --undotree
-    { "mbbill/undotree", name = "undotree"},
-    --git integration
-    {"tpope/vim-fugitive", name = "fugitive"},
-    -- mason (lsp)
-   { "mason-org/mason.nvim", opts = {}, lazy = false},
-  },
-  -- Configure any other settings here. See the documentation for more details.
-  -- colorscheme that will be used when installing plugins.
-  install = { colorscheme = { "rose-pine" } },
-  -- automatically check for plugin updates
-  checker = { enabled = true },
+	spec = {
+		-- treesitter V2
+		{
+			"nvim-treesitter/nvim-treesitter",
+			lazy = false,
+			build = ":TSUpdate",
+			config = function()
+				local ts = require("nvim-treesitter")
+				local languages = {
+					"html",
+					"json",
+					"lua",
+					"markdown",
+					"python",
+					"sql",
+					"vim",
+					"rust",
+					"lua",
+					"gdscript",
+					"gdshader",
+					"godot_resource",
+				}
+
+				ts.setup({
+					install_dir = vim.fn.stdpath('data') .. '/lazy/nvim-treesitter',
+					-- Automatically install missing parsers when entering buffer
+					auto_install = false,
+					highlight = {
+						enable = true,
+					},
+				})
+
+				-- Use :TSInstall for manuall install languages
+				ts.install(languages)
+
+				-- Treesitter features for installed languages must be enabled manually
+				vim.api.nvim_create_autocmd("FileType", {
+					pattern = languages,
+					callback = function()
+						-- Enable native Neovim treesitter highlighting
+						vim.treesitter.start()
+
+						-- Configure code folding # IDK ce que ça fait
+						-- vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+						-- vim.wo.foldmethod = "expr"
+						-- vim.wo.foldlevel = 99
+
+						-- Enable treesitter-based indentation # ça non plus
+						-- vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+					end,
+				})
+			end,
+		},
+		--telescope
+		{
+			'nvim-telescope/telescope.nvim',
+			version = '*',
+			dependencies = {
+				'nvim-lua/plenary.nvim',
+				-- optional but recommended
+				{ 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+			}
+		},
+		--rose-pine
+		{
+			"rose-pine/neovim",
+			name = "rose-pine",
+			config = function()
+				vim.cmd('colorscheme rose-pine')
+			end,
+		},
+		--harpoon
+		{ "ThePrimeagen/harpoon", name = "harpoon" },
+		--undotree
+		{ "mbbill/undotree",      name = "undotree" },
+		--git integration
+		{ "tpope/vim-fugitive",   name = "fugitive" },
+		-- mason (lsp)
+		{ "mason-org/mason.nvim", opts = {},        lazy = false },
+	},
+	-- Configure any other settings here. See the documentation for more details.
+	-- colorscheme that will be used when installing plugins.
+	install = { colorscheme = { "rose-pine" } },
+	-- automatically check for plugin updates
+	checker = { enabled = true },
 })
