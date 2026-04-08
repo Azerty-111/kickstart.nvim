@@ -39,7 +39,7 @@ end)
 vim.keymap.set('n', "<leader>xf", ":!cargo run<enter>")
 
 -- formating file
-vim.keymap.set('n', "<leader>sr", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<left><left><left>")
+vim.keymap.set('n', "<leader>cw", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<left><left><left>")
 vim.keymap.set('n', '<leader>fo', function()
 	vim.lsp.buf.format()
 end)
@@ -76,4 +76,5 @@ vim.keymap.set('i', "<C-Space>", "<C-x><C-o>")
 -- remap of esc
 vim.keymap.set('i', "jk", "<Esc>")
 vim.keymap.set('c', "jk", "<Esc>")
-vim.keymap.set('v', "jk", "<Esc>") -- maybe anoying, idk
+
+vim.keymap.set('v', "Y", "\"+y")
