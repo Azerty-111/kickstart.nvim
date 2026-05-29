@@ -52,7 +52,7 @@ vim.keymap.set('n', "<leader>gc", function()
 	if com == "no" then
 		return
 	end
-	vim.cmd(":!git ci -m '" .. com .. "'")
+	vim.cmd(":!git commit -m '" .. com .. "'")
 end)
 
 -- mv of line the commant things
@@ -71,7 +71,7 @@ vim.keymap.set('n', "<leader>j", "<cmd>lprev<CR>zz")
 vim.keymap.set('n', "n", "nzzzv")
 vim.keymap.set('n', "N", "Nzzzv")
 
-vim.keymap.set('i', "<C-Space>", "<C-x><C-o>")
+vim.keymap.set('i', "<C-Space>", vim.lsp.completion.get)
 
 -- remap of esc
 vim.keymap.set('i', "jk", "<Esc>")
