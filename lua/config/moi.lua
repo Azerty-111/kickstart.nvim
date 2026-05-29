@@ -36,7 +36,7 @@ vim.keymap.set('n', '<leader>so', function()
 	vim.cmd('w')
 	vim.cmd('so')
 end)
-vim.keymap.set('n', "<leader>xf", ":!cargo run<enter>")
+vim.keymap.set('n', "<leader>xf", ":w<CR>:!cargo run<enter>")
 
 -- formating file
 vim.keymap.set('n', "<leader>cw", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<left><left><left>")
