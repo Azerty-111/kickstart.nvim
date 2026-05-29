@@ -15,7 +15,7 @@ vim.lsp.config('lua', {
 vim.lsp.enable('lua')
 
 vim.lsp.config('python', {
-	cmd = { 'python-lsp-server' },
+	cmd = { 'pylsp' },
 	filetypes = { 'python' },
 })
 

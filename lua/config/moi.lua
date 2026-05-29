@@ -45,11 +45,11 @@ vim.keymap.set('n', '<leader>fo', function()
 end)
 
 -- git commit short cut
-vim.keymap.set('n', "<leader>gc", function()
+vim.keymap.set('n', "<leader>ci", function()
 	vim.cmd(":w")
 	vim.cmd(":!git add .")
 	local com = vim.fn.input("comment -> ")
-	if com == "no" then
+	if com == "q" then
 		return
 	end
 	vim.cmd(":!git ci -m '" .. com .. "'")
